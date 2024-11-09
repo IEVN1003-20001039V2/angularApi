@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MessageserviceService } from '../messageservice.service';
-import { FormBuilder, FormControl, FormGroup, NgForm, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-add-message',
@@ -13,16 +13,14 @@ export class AddMessageComponent implements OnInit{
 
   formGroup!:FormGroup;
 
-  constructor(public messageservice: MessageserviceService, private fb: FormBuilder){}
+  constructor(public messageService: MessageserviceService, private fb: FormBuilder){}
   alumno: string=""
 
 ngOnInit(): void{
       this.formGroup=this.initForm();
 }
-  initForm(): FormGroup<any> {
-    throw new Error('Method not implemented.');
-  }
-  NgForm(): FormGroup  {
+
+  initForm(): FormGroup  {
       return this.fb.group({
         nombre:['']
    } )
@@ -30,7 +28,7 @@ ngOnInit(): void{
 
   addAlumno(){
     let {nombre}=this.formGroup.value;
-    this.messageservice.add(nombre)
+    this.messageService.add(nombre)
     this.formGroup.get('nombre')?.setValue('')  }
 
 }
